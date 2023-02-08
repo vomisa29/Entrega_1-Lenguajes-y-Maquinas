@@ -1,5 +1,6 @@
 expected_char = {}
-defined_words = {}
+defined_words = {"M:":"M", "R":"R","C:":"C","B:":"B","c:":"c","b:":"b","P:":"P","J(":"funcJ","G(":"funcG","PROCS":"PROCS","ROBOT_R":"ROB","VARS":"VARS","assignTo:":"procAST","goto:":"procGOT", "move:":"procMOV", "turn:":"procTUR", "face:":"procFAC", "put:":"procPUT", "pick:":"procPIC", "moveToThe:":"procMTT","moveInDir:":"procMID","jumpToThe:":"procJTT","jumpInDir:":"procJID", "nop":"procNOP"}
+token_lst = []
 file_name= input("Ingrese el nombre del archivo: ")
 file = open("ExampleCodeLYM.txt", encoding="utf8")
 all_lines = file.readlines()
@@ -9,9 +10,12 @@ for line in all_lines:
 word = ""
 for character in long_str:
     if character != " ":
+        if character == "["
+        defined_words[word] = "ID(" + word + ")" 
         word = word + character 
+        long_str = long_str[:1]
         if word in defined_words:
-            print(word)
+            token_lst.append(defined_words[word])
             word == ""
 
 
