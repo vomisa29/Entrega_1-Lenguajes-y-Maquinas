@@ -68,6 +68,7 @@ for character in long_str:
                 token_lst.append(defined_words[word])
                 word = ""
 print("\n")
+print("Lista de Tokens")
 print(token_lst)
 print("\n")
 print("Lista de Variables")
