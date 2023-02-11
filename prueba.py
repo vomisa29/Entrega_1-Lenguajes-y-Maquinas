@@ -17,8 +17,8 @@ DEFINICIONES DE FUNCIONES
 ***********************************************************************************************************************************************************
 """
 
-def program_start(defined_words:dict, defined_basics:dict, defined_funcs:dict,token_lst:list):
-    file = open("ExampleCodeLYM.txt", encoding="utf8")
+def program_start(defined_words:dict, defined_basics:dict, defined_funcs:dict,token_lst:list, archivo:str):
+    file = open(archivo, encoding="utf8")
     all_lines = file.readlines()
     long_str = ""
     for line in all_lines:
@@ -127,7 +127,8 @@ defined_funcs = {"M:":"M", "R:":"R","C:":"C","B:":"B","c:":"c","b:":"b","P:":"P"
 "jumpToThe:":"procJTT","jumpInDir:":"procJID", "nop":"procNOP", "while":"while", "repeat":"repeat"}
 
 #Start 
-program_start(defined_words, defined_basics, defined_funcs,token_lst)
+archivo = input("Ingrese el camino del archivo: ")
+program_start(defined_words, defined_basics, defined_funcs,token_lst,archivo)
 
 def recursive_experiment(defined_words, defined_basics, defined_funcs,token_lst):
     file = open("ExampleCodeLYM.txt", encoding="utf8")
@@ -136,5 +137,6 @@ def recursive_experiment(defined_words, defined_basics, defined_funcs,token_lst)
     for line in all_lines:
         long_str = long_str + line.strip()
     return token_lst
+
 print("Lista de Tokens del Programa: ")
 print(token_lst)
