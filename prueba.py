@@ -38,58 +38,53 @@ def dict_check(defined_words:dict, defined_basics:dict, defined_funcs:dict,token
 def variables(defined_words:dict, defined_basics:dict, defined_funcs:dict,token_lst:list,long_str:str):
     word = ""
     for character in long_str:
-        if character != " ":
-            long_str = long_str[1:]
-            word = word + character 
-            if character == ";":
-                word = word[:-1]
-                var_list = word.split(",")
-                token_lst.extend(var_list)
-                normal_reader(defined_words, defined_basics, defined_funcs,token_lst,long_str)
+        long_str = long_str[1:]
+        word = word + character 
+        if character == ";":
+            word = word[:-1]
+            var_list = word.split(",")
+            token_lst.extend(var_list)
+            normal_reader(defined_words, defined_basics, defined_funcs,token_lst,long_str)
 
 def variables_proc(defined_words:dict, defined_basics:dict, defined_funcs:dict,token_lst:list,long_str:str):
     word = ""
     for character in long_str:
-        if character != " ":
-            long_str = long_str[1:]
-            word = word + character 
-            if character == "|":
-                word = word[:-1]
-                var_list = word.split(",")
-                token_lst.extend(var_list)
+        long_str = long_str[1:]
+        word = word + character 
+        if character == "|":
+            word = word[:-1]
+            var_list = word.split(",")
+            token_lst.extend(var_list)
     
 def procedures(defined_words:dict, defined_basics:dict, defined_funcs:dict,token_lst:list,long_str:str):
     word = ""
     for character in long_str:
-        if character != " ":
-            long_str = long_str[1:]
-            word = word + character 
-            if character == "[":
-                word = word[:-1]
-                token_lst.append("PROCID("+word+")")
-                inside_proced(defined_words, defined_basics, defined_funcs,token_lst,long_str)
-                break 
+        long_str = long_str[1:]
+        word = word + character 
+        if character == "[":
+            word = word[:-1]
+            token_lst.append("PROCID("+word+")")
+            inside_proced(defined_words, defined_basics, defined_funcs,token_lst,long_str)
+            break 
 
 def inside_proced(defined_words:dict, defined_basics:dict, defined_funcs:dict,token_lst:list,long_str:str):
     word = ""
     scuareCounter =0
     for character in long_str:
-        if character != " ":
-            long_str = long_str[1:]
-            word = word + character
-            if character == "|":
-                word = word[:-1]
-                variables_proc(defined_words, defined_basics, defined_funcs,token_lst,long_str)
-            if character == "[":
-                word = word[:-1]
-                scuareCounter += 1
-            if character == "]":
-                word = word[:-1]
-                scuareCounter -= 1 
-                if scuareCounter == 0:
-                    print(long_str)
-                    procedures(defined_words, defined_basics, defined_funcs,token_lst,long_str)
-                    break
+        long_str = long_str[1:]
+        word = word + character
+        if character == "|":
+            word = word[:-1]
+            variables_proc(defined_words, defined_basics, defined_funcs,token_lst,long_str)
+        if character == "[":
+            word = word[:-1]
+            scuareCounter += 1
+        if character == "]":
+            word = word[:-1]
+            scuareCounter -= 1 
+            if scuareCounter == 0:
+                procedures(defined_words, defined_basics, defined_funcs,token_lst,long_str)
+                break
         
 def rob(defined_words:dict, defined_basics:dict, defined_funcs:dict,token_lst:list,long_str:str):
     if len(token_lst) >0:
@@ -100,14 +95,18 @@ def rob(defined_words:dict, defined_basics:dict, defined_funcs:dict,token_lst:li
 def normal_reader(defined_words:dict, defined_basics:dict, defined_funcs:dict,token_lst:list,long_str:str): 
     word = ""
     for character in long_str:
-        if character != " ":
-            long_str = long_str[1:]
-            word = word + character
-            if word in defined_words:
-                token_lst.append(defined_words[word])
-                defined_funcs[word](defined_words, defined_basics, defined_funcs,token_lst,long_str)
-                word = ""
-                break 
+        long_str = long_str[1:]
+        word = word + character
+        if word == "ROBOT_R":
+            token_lst.append(defined_words[word])
+            rob(defined_words, defined_basics, defined_funcs,token_lst,long_str)
+            word = ""
+            break
+        elif word == "VARS":
+            token_lst.append(defined_words[word])
+            variables(defined_words, defined_basics, defined_funcs,token_lst,long_str)
+            word = ""
+            break
 
 #Definicion de diccionario de funciones 
 
