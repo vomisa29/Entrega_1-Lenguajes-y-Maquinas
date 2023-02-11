@@ -38,7 +38,7 @@ def variables(defined_words:dict, defined_basics:dict, defined_funcs:dict,token_
         if character == ";":
             var_list = word.split(",")
             token_lst.extend(var_list)
-            normal_reader()
+            normal_reader(defined_words, defined_basics, defined_funcs,token_lst,long_str)
             break
 
 def variables_proc(defined_words:dict, defined_basics:dict, defined_funcs:dict,token_lst:list,long_str:str):
@@ -58,7 +58,7 @@ def procedures(defined_words:dict, defined_basics:dict, defined_funcs:dict,token
         word = word + character 
         if character == "[":
             token_lst.append("PROCID("+word+")")
-            inside_proced(long_str)
+            inside_proced(defined_words, defined_basics, defined_funcs,token_lst,long_str)
             break
 
 def inside_proced(defined_words:dict, defined_basics:dict, defined_funcs:dict,token_lst:list,long_str:str):
@@ -69,13 +69,13 @@ def inside_proced(defined_words:dict, defined_basics:dict, defined_funcs:dict,to
         if character == "|" and len(word) > 1:
             raise Exception("Hay un procedimiento mal definido pero no se cual jijijiji")
         elif character == "|" and len(word) == 1:
-            variables_proc(defined_words, defined_basics, defined_funcs,token_lst)
+            variables_proc(defined_words, defined_basics, defined_funcs,token_lst,long_str)
         if character == "[":
             scuareCounter += 1
         if character == "]":
             scuareCounter -= 1 
             if scuareCounter == 0:
-                procedures(defined_words, defined_basics, defined_funcs,token_lst)
+                procedures(defined_words, defined_basics, defined_funcs,token_lst,long_str)
                 break
         
 def rob(defined_words:dict, defined_basics:dict, defined_funcs:dict,token_lst:list,long_str:str):
