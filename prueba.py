@@ -65,18 +65,19 @@ def procedures(defined_words:dict, defined_basics:dict, defined_funcs:dict,token
         if character == "[":
             word = word[:-1]
             token_lst.append("PROCID("+word+")")
-            inside_proced(defined_words, defined_basics, defined_funcs,token_lst,long_str)
+            scuareCounter = 1
+            inside_proced(defined_words, defined_basics, defined_funcs,token_lst,long_str, scuareCounter)
             break 
 
-def inside_proced(defined_words:dict, defined_basics:dict, defined_funcs:dict,token_lst:list,long_str:str):
+def inside_proced(defined_words:dict, defined_basics:dict, defined_funcs:dict,token_lst:list,long_str:str, scuareCounter:int):
     word = ""
-    scuareCounter =0
+    
     for character in long_str:
         long_str = long_str[1:]
         word = word + character
         if character == "|":
             word = word[:-1]
-            variables_proc(defined_words, defined_basics, defined_funcs,token_lst,long_str)
+            #variables_proc(defined_words, defined_basics, defined_funcs,token_lst,long_str)
         if character == "[":
             word = word[:-1]
             scuareCounter += 1
@@ -84,6 +85,7 @@ def inside_proced(defined_words:dict, defined_basics:dict, defined_funcs:dict,to
             word = word[:-1]
             scuareCounter -= 1 
             if scuareCounter == 0:
+                token_lst.append("PROCID("+word+")")
                 procedures(defined_words, defined_basics, defined_funcs,token_lst,long_str)
                 break
         
