@@ -136,5 +136,5 @@ def recursive_experiment(defined_words, defined_basics, defined_funcs,token_lst)
     for line in all_lines:
         long_str = long_str + line.strip()
     return token_lst
-
+print("Lista de Tokens del Programa: ")
 print(token_lst)
