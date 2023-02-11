@@ -45,6 +45,7 @@ def variables(defined_words:dict, defined_basics:dict, defined_funcs:dict,token_
             var_list = word.split(",")
             token_lst.extend(var_list)
             normal_reader(defined_words, defined_basics, defined_funcs,token_lst,long_str)
+            break 
 
 def variables_proc(defined_words:dict, defined_basics:dict, defined_funcs:dict,token_lst:list,long_str:str):
     word = ""
@@ -107,6 +108,12 @@ def normal_reader(defined_words:dict, defined_basics:dict, defined_funcs:dict,to
             variables(defined_words, defined_basics, defined_funcs,token_lst,long_str)
             word = ""
             break
+        elif word == "PROCS":
+            token_lst.append(defined_words[word])
+            procedures(defined_words, defined_basics, defined_funcs,token_lst,long_str)
+            word = ""
+            break
+
 
 #Definicion de diccionario de funciones 
 
