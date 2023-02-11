@@ -76,7 +76,8 @@ def inside_proced(defined_words:dict, defined_basics:dict, defined_funcs:dict,to
         long_str = long_str[1:]
         word = word + character
         if character == "|":
-            word = word[:-1]
+            pass
+            #word = word[:-1]
             #variables_proc(defined_words, defined_basics, defined_funcs,token_lst,long_str)
         if character == "[":
             word = word[:-1]
