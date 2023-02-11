@@ -27,7 +27,6 @@ def program_start(defined_words:dict, defined_basics:dict, defined_funcs:dict,to
     long_str = ""
     for line in string_list:
         long_str = long_str + line
-    print(long_str)
     normal_reader(defined_words,defined_basics,defined_funcs,token_lst,long_str)
 
 def dict_check(defined_words:dict, defined_basics:dict, defined_funcs:dict,token_lst:list,long_str:str,word:str):
@@ -64,14 +63,16 @@ def procedures(defined_words:dict, defined_basics:dict, defined_funcs:dict,token
         word = word + character 
         if character == "[":
             word = word[:-1]
-            token_lst.append("PROCID("+word+")")
+            if word == "":
+                token_lst.append("INSTRUCTION_BLOCK()")
+            else:
+                token_lst.append("PROCID("+word+")")
             scuareCounter = 1
-            inside_proced(defined_words, defined_basics, defined_funcs,token_lst,long_str, scuareCounter)
+            inside_proced(defined_words, defined_basics, defined_funcs,token_lst,long_str, scuareCounter, word)
             break 
 
-def inside_proced(defined_words:dict, defined_basics:dict, defined_funcs:dict,token_lst:list,long_str:str, scuareCounter:int):
+def inside_proced(defined_words:dict, defined_basics:dict, defined_funcs:dict,token_lst:list,long_str:str, scuareCounter:int, kword:str):
     word = ""
-    
     for character in long_str:
         long_str = long_str[1:]
         word = word + character
@@ -86,7 +87,7 @@ def inside_proced(defined_words:dict, defined_basics:dict, defined_funcs:dict,to
             word = word[:-1]
             scuareCounter -= 1 
             if scuareCounter == 0:
-                token_lst.append("PROCID("+word+")")
+                token_lst.append("PROCBDY" + kword + "("+word+")")
                 procedures(defined_words, defined_basics, defined_funcs,token_lst,long_str)
                 break
         
